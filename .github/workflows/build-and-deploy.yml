@@ -56,7 +56,7 @@ jobs:
                   --name $env:APP_NAME `
                   --resource-group $env:AZURE_GROUP_DELIVERY `
                   --environment $env:GITHUB_RUNNER_ENVIRONMENT_NAME `
-                  --image "$env:GITHUB_RUNNER_CONTAINER_IMAGE:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG" `
+                  --image "myoung34/github-runner:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG" `
                   --trigger-type Event `
                   --replica-timeout 1800 `
                   --replica-retry-limit 1 `
@@ -76,7 +76,7 @@ jobs:
               az containerapp job update `
                   -n $env:APP_NAME `
                   -g $env:AZURE_GROUP_DELIVERY `
-                  --image $env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG":"$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG `
+                  --image "$env:GITHUB_RUNNER_CONTAINER_IMAGE:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG" `
                   --set-env-vars "RUNNER_LABELS=$env:GITHUB_RUNNER_ENV_LABEL";
           }
 
