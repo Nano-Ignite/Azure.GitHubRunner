@@ -15,7 +15,7 @@ env:
   AZURE_GROUP_KUBERNETES: ${{ vars.AZURE_RESOURCE_GROUP_KUBERNETES }} 
   AZURE_GROUP_DELIVERY: ${{ vars.AZURE_RESOURCE_GROUP_DELIVERY }} 
   AZURE_SUBSCRIPTION_ID: ${{ github.ref == 'refs/heads/master' && secrets.PRODUCTION_AZURE_SUBSCRIPTION_ID || secrets.STAGING_AZURE_SUBSCRIPTION_ID }}
-  GITHUB_RUNNER_CONTAINER_IMAGE: ubuntu-22.04
+  GITHUB_RUNNER_CONTAINER_IMAGE_TAG: ubuntu-noble
   GITHUB_RUNNER_OWNER: ${{ github.repository_owner }}
   GITHUB_RUNNER_APP_ID: ${{ secrets.GITHUBRUNNER_APP_ID }}
   GITHUB_RUNNER_INSTALLATION_ID: ${{ secrets.GITHUBRUNNER_APP_ID }}
@@ -67,7 +67,7 @@ jobs:
                       applicationID=$env:GITHUB_RUNNER_APP_ID `
                       installationID=$env:GITHUB_RUNNER_INSTALLATION_ID" `
                   --scale-rule-auth "appKey=github-app-key-secret" `
-                  --image "myoung34/github-runner:$env:GITHUB_RUNNER_CONTAINER_IMAGE" `
+                  --image "myoung34/github-runner:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG" `
                   --cpu 2 `
                   --memory 4Gi `
                   --secrets "github-app-key-secret=$env:GITHUB_RUNNER_KEY" `
