@@ -45,11 +45,6 @@ jobs:
       - name: Deploy GitHub Self-Hosted Runner
         shell: pwsh
         run: |
-          $IsMaster = $env:AZURE_SUBSCRIPTION_ID -eq "${{ secrets.PRODUCTION_AZURE_SUBSCRIPTION_ID }}"
-          $TargetBranch = if ($IsMaster) { "master" } else { "develop" }
-          $EnvLabel     = if ($IsMaster) { "Production" } else { "Staging" }
-
-
           $JobExists = az containerapp job list -g $env:AZURE_GROUP_DELIVERY --query "[?name=='$env:APP_NAME'].name" -o tsv;
 
           if (-not $JobExists) 
@@ -80,8 +75,8 @@ jobs:
               az containerapp job update `
                   -n $env:APP_NAME `
                   -g $env:AZURE_GROUP_DELIVERY `
-                  --image myoung34/github-runner:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG `
-                  --env-vars "RUNNER_LABELS=$env:GITHUB_RUNNER_ENV_LABEL";
+                  --image "myoung34/github-runner:$env:GITHUB_RUNNER_CONTAINER_IMAGE_TAG" `
+                  --set-env-vars "RUNNER_LABELS=$env:GITHUB_RUNNER_ENV_LABEL";
           }
 
       - name: GitHub Release
