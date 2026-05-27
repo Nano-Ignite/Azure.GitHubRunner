@@ -69,6 +69,7 @@ jobs:
                       "runnerScope=org" `
                       "applicationID=$env:GITHUB_RUNNER_APP_ID" `
                       "installationID=$env:GITHUB_RUNNER_INSTALLATION_ID" `
+                      "labels=$env:GITHUB_RUNNER_ENV_LABEL" `
                   --scale-rule-auth "appKey=github-app-key-secret" `
                   --cpu 2 `
                   --memory 4Gi `
