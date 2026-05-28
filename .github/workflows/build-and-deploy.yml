@@ -48,6 +48,7 @@ jobs:
         run: |
           $JobExists = az containerapp job list -g $env:AZURE_GROUP_DELIVERY --query "[?name=='$env:APP_NAME'].name" -o tsv;
 
+          $SecureKeyString = $env:GITHUB_RUNNER_KEY
           #make variables for all parameters. and remove really static ones from update like --scale-rule-type "github-runner"
 
           if (-not $JobExists) 
@@ -76,7 +77,7 @@ jobs:
                   --cpu 2 `
                   --memory 4Gi `
                   --polling-interval 30 `
-                  --secrets "github-app-key-secret=$env:GITHUB_RUNNER_KEY" `
+                  --secrets "github-app-key-secret=$SecureKeyString" `
                   --env-vars "GH_OWNER=$env:GITHUB_RUNNER_OWNER" "GH_ORG=$env:GITHUB_RUNNER_OWNER" "APP_ID=$env:GITHUB_RUNNER_APP_ID" "APP_PRIVATE_KEY=secretref:github-app-key-secret" "EPHEMERAL=true" "RUNNER_LABELS=$env:GITHUB_RUNNER_ENV_LABEL" "RUNNER_SCOPE=org" "ORG_NAME=$env:GITHUB_RUNNER_OWNER";
           } 
           else 
